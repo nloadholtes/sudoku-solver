@@ -62,7 +62,7 @@ for f in ./*.py ; do
 	echo -n "starting solver $f"
 	cat $PUZZLES | while read pname puzzle solution; do
 		echo -n " $pname"
-		result=$(timeout 60 $TIME --output=${f}@${pname}@time1 python ${f} ${puzzle} 2>&1)
+		result=$(gtimeout 60 $TIME --output=${f}@${pname}@time1 python ${f} ${puzzle} 2>&1)
 		if [ "$result" != "$solution" ]; then
 			echo
 			echo "file $f failed to solve puzzle $puzzle"
@@ -70,8 +70,8 @@ for f in ./*.py ; do
 			echo "right: -- $solution --"
 			break
 		fi
-		result=$(timeout 60 $TIME --output=${f}@${pname}@time2 python ${f} ${puzzle} 2>&1)
-		result=$(timeout 60 $TIME --output=${f}@${pname}@time3 python ${f} ${puzzle} 2>&1)
+		result=$(gtimeout 60 $TIME --output=${f}@${pname}@time2 python ${f} ${puzzle} 2>&1)
+		result=$(gtimeout 60 $TIME --output=${f}@${pname}@time3 python ${f} ${puzzle} 2>&1)
 		# for res in ${f}@${pname}@time?; do
 		# 	t=$(cat $res | grep elapsed)
 		# done
